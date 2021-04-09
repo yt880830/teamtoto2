@@ -1,0 +1,168 @@
+################################################################
+■大元のデータベース作成
+CREATE DATABASE totonara;
+\l
+
+################################################################
+① ユーザーの会員情報テーブル
+   → テーブル名 : account
+   → カラム名 : 1.id | 2.name | 3.username | 4.password | 5.address | 6.mailaddress | 7.icon(画像)
+
+■icon画像ありバージョン
+create table account (
+	id SERIAL, 
+	name varchar(20) not null, 
+	username varchar(20) not null,
+	password varchar(20) not null ,
+	address varchar(100) not null ,
+	mailaddress varchar(100) not null ,
+	icon varchar(100),
+	primary key(id)
+);
+
+■icon画像なしバージョン
+create table account (
+	id SERIAL, 
+	name varchar(20) not null, 
+	username varchar(20) not null,
+	password varchar(20) not null ,
+	address varchar(100) not null ,
+	mailaddress varchar(100) not null ,
+	primary key(id)
+);
+
+■データ投入
+insert into account (name, username,password,address,mailaddress) values( '山田太郎', 'yamada_t', 'abcdefghij', '神奈川県', 'xxxx@xxxx.jp');
+insert into account (name, username,password,address,mailaddress) values( '佐藤次郎', 'satou_g', 'Aaaaaaaaa', '東京都', 'yyyy@yyyy.jp');
+insert into account (name, username,password,address,mailaddress) values( '徒々文煮三郎', 'totomoni_s', 'abcdefghij', '神奈川県', 'zzzz@zzzz.jp');
+
+■確認
+SELECT * FROM account;
+
+################################################################
+②出品情報テーブル
+   → テーブル名 : item
+        カラム名 : 1.itemid | 2.id | 3.username | 4.price | 5.title | 6.introduction | 7.sample(画像) | 8.genre
+
+■画像ありバージョン
+create table item (
+	itemid SERIAL,
+	id int not null,
+	username varchar(20) not null,
+	price int not null,
+	title varchar(100) not null,
+	introduction varchar(1000) not null,
+	sample varchar(100),
+	genre varchar(20) not null,
+	primary key(id)
+);
+
+■画像なしバージョン
+create table item (
+	itemid SERIAL,
+	id int not null,
+	username varchar(20) not null,
+	price int not null,
+	title varchar(100) not null,
+	introduction varchar(1000) not null,
+	genre varchar(20) not null,
+	primary key(itemid)
+);
+
+■データ投入
+insert into item (id, username, price, title, introduction, genre) values( '1', 'yamada_t', '5000', 'ロゴ作成します！', 'オリジナルのシンプルなものから複雑なものまで丁寧に作成します！', '動画・写真・画像');
+insert into item (id, username, price, title, introduction, genre) values( '2', 'satou_g', '3000', 'タロット占い！', '以前は某テレビ局でのお仕事もしておりました。あたると評判です！', '占い');
+insert into item (id, username, price, title, introduction, genre) values( '3', 'totomoni_s', '20000', 'プロモデラーがプラモデル作成します！', '雑誌掲載多数！あなたの作成して欲しいプラモデルを作成します！', 'その他');
+
+■確認
+SELECT * FROM item;
+
+################################################################
+③購入情報、購入履歴テーブル → 必須
+   → テーブル名 : purchase
+   → カラム名 : 1.id | 2.sellername | 3.price | 4.title | 5.sample(画像)
+
+■画像ありバージョン
+create table purchase (
+id SERIAL,
+sellername varchar(100) not null,
+price int not null,
+title varchar(100) not null,
+sample varchar(100),
+primary key(id)
+);
+
+■画像なしバージョン
+create table purchase (
+id SERIAL,
+sellername varchar(100) not null,
+price int not null,
+title varchar(100) not null,
+primary key(id)
+);
+
+□データ投入
+insert into purchase (sellername, price, title) values( 'yamada_t', '5000', 'ロゴ作成します！');
+insert into purchase (sellername, price, title) values( 'satou_g', '3000', 'タロット占い！');
+insert into purchase (sellername ,price, title) values( 'totomoni_s', '20000', 'プロモデラーがプラモデル作成します！');
+
+■確認
+SELECT * FROM purchase;
+
+################################################################
+④オプションテーブル
+  追加サービスがあった場合の金額のテーブル
+  → テーブル名 : option
+  → カラム名   : 1.itemid | 2.option1 | 3.price1 | 4.option2 | 5.price2
+                  6.option3 | 7.price3 | 8.option4 | 9.price4 | 10.option5 | 11.price5
+
+■
+create table option (
+	itemid int not null,
+	option1  varchar(100) not null,
+	price1 INTEGER not null,
+	option2  varchar(100),
+	price2 INTEGER,
+	option3  varchar(100),
+	price3 INTEGER,
+	option4  varchar(100),
+	price4 INTEGER,
+	option5  varchar(100),
+	price5 INTEGER,
+	primary key(itemid)
+);
+
+■データ投入
+insert into option (itemid, option1, price1, option2, price2, option3, price3, option4, price4, option5, price5) values( '1', '2パターン', '1000', '3パターン', '2000', '4パターン', '3000', '5パターン', '4000', '6パターン', '5000');
+insert into option (itemid, option1, price1, option2, price2, option3, price3, option4, price4, option5, price5) values( '2', '1時間', '3000', '2時間', '6000', '3時間', '9000', '4時間', '12000', '5時間', '15000');
+insert into option (itemid ,option1, price1, option2, price2, option3, price3, option4, price4, option5, price5) values( '3', 'グラデーション塗装', '1000', 'キャンディー塗装', '1000', 'ウォッシング', '1000', '全塗装', '1000', 'ドライブラシ', '500');
+
+■確認
+SELECT * FROM option;
+
+################################################################
+⑤チャットテーブル (before)
+   （出品情報の中に入れることは容量上難しいと思われる）
+   → テーブル名 : chatbefore
+   → カラム名 : 1.id | 2.商品ID | 3.会話 | 4.XXX
+   → 一旦、保留
+
+□
+
+□データ投入
+
+■確認
+SELECT * FROM chatbefore;
+
+################################################################
+⑥チャットテーブル (after)
+   → テーブル名 : chatafter
+   → カラム名 : 1.id | 2.sellername | 3.price | 4.title
+   → 一旦、保留
+
+□
+
+□データ投入
+
+■確認
+SELECT * FROM chatafter;
