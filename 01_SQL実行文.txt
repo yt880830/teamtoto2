@@ -34,7 +34,7 @@ create table account (
 ■データ投入
 insert into account (name, username,password,address,mailaddress) values( '山田太郎', 'yamada_t', 'abcdefghij', '神奈川県', 'xxxx@xxxx.jp');
 insert into account (name, username,password,address,mailaddress) values( '佐藤次郎', 'satou_g', 'Aaaaaaaaa', '東京都', 'yyyy@yyyy.jp');
-insert into account (name, username,password,address,mailaddress) values( '徒々文煮三郎', 'totomoni_s', 'abcdefghij', '神奈川県', 'zzzz@zzzz.jp');
+insert into account (name, username,password,address,mailaddress) values( '徒々文煮三郎', 'totomoni_s', 'Bbbbbbbb', '埼玉県', 'zzzz@zzzz.jp');
 
 ■確認
 SELECT * FROM account;
@@ -54,7 +54,7 @@ create table item (
 	introduction varchar(1000) not null,
 	sample varchar(100),
 	genre varchar(20) not null,
-	primary key(id)
+	primary key(itemid)
 );
 
 ■画像なしバージョン
@@ -72,7 +72,14 @@ create table item (
 ■データ投入
 insert into item (id, username, price, title, introduction, genre) values( '1', 'yamada_t', '5000', 'ロゴ作成します！', 'オリジナルのシンプルなものから複雑なものまで丁寧に作成します！', '動画・写真・画像');
 insert into item (id, username, price, title, introduction, genre) values( '2', 'satou_g', '3000', 'タロット占い！', '以前は某テレビ局でのお仕事もしておりました。あたると評判です！', '占い');
-insert into item (id, username, price, title, introduction, genre) values( '3', 'totomoni_s', '20000', 'プロモデラーがプラモデル作成します！', '雑誌掲載多数！あなたの作成して欲しいプラモデルを作成します！', 'その他');
+insert into item (id, username, price, title, introduction, genre) values( '3', 'totomoni_s', '50000', 'プロモデラーがプラモデル作成します！', '雑誌掲載多数！あなたの作成して欲しいプラモデルを作成します！', 'その他');
+insert into item (id, username, price, title, introduction, genre) values( '4', 'totomoni_a', '5000', 'Adobe系JavaScriptを作成します！', '面倒くさい手作業を自動化します！', 'IT・プログラミング');
+insert into item (id, username, price, title, introduction, genre) values( '5', 'totomoni_b', '30000', 'オリジナル楽曲を作成します！', '広告向け・自己PR動画のバックミュージック等を作成します！', '作曲');
+insert into item (id, username, price, title, introduction, genre) values( '6', 'totomoni_c', '10000', '会議資料等作成します！PowerPoint、Excel資料等', '時間がない！そんなあなたに代わって会議資料を作成します！', 'ビジネスサポート・代行');
+insert into item (id, username, price, title, introduction, genre) values( '7', 'totomoni_d', '20000', 'YouTube収益化、再生時間を増やします！', 'ユーチューブ（YouTube）の総再生時間+1000時間増えるまで拡散します！', '集客・SNSマーケティング');
+insert into item (id, username, price, title, introduction, genre) values( '8', 'totomoni_e', '10000', 'セルビア語翻訳します！', 'あっこのセルビア人のメール意味がわからない！そんなあなたに翻訳します！', '翻訳・語学');
+insert into item (id, username, price, title, introduction, genre) values( '9', 'totomoni_f', '3000', 'あなたの悩み相談お聞きします！', '学校、恋人、となりの植田の話、なんでも相談にのります！', '悩み相談・カウンセリング');
+insert into item (id, username, price, title, introduction, genre) values( '10', 'totomoni_g', '15000', '副業、アフェリエイトをはじめたい！', 'そんなあなたにノウハウを教えます！', 'マネー・副業・アフェリエイト');
 
 ■確認
 SELECT * FROM item;
@@ -84,27 +91,25 @@ SELECT * FROM item;
 
 ■画像ありバージョン
 create table purchase (
-id SERIAL,
+id int not null,
 sellername varchar(100) not null,
 price int not null,
 title varchar(100) not null,
-sample varchar(100),
-primary key(id)
+sample varchar(100)
 );
 
 ■画像なしバージョン
 create table purchase (
-id SERIAL,
+id int not null,
 sellername varchar(100) not null,
 price int not null,
-title varchar(100) not null,
-primary key(id)
+title varchar(100) not null
 );
 
 □データ投入
-insert into purchase (sellername, price, title) values( 'yamada_t', '5000', 'ロゴ作成します！');
-insert into purchase (sellername, price, title) values( 'satou_g', '3000', 'タロット占い！');
-insert into purchase (sellername ,price, title) values( 'totomoni_s', '20000', 'プロモデラーがプラモデル作成します！');
+insert into purchase (id, sellername, price, title) values('1', 'yamada_t', '5000', 'ロゴ作成します！');
+insert into purchase (id, sellername, price, title) values('2', 'satou_g', '3000', 'タロット占い！');
+insert into purchase (id, sellername ,price, title) values('3', 'totomoni_s', '20000', 'プロモデラーがプラモデル作成します！');
 
 ■確認
 SELECT * FROM purchase;
@@ -166,3 +171,13 @@ SELECT * FROM chatbefore;
 
 ■確認
 SELECT * FROM chatafter;
+
+
+
+
+
+
+
+<a href="<c:url value="../syuppin/Item.action">      <%-- 遷移先 --%>
+    <c:param name="itemid" value="${item.itemid}" />     <%-- 飛ばすリンクに送る名前と値の指定    itemidごとに振り分けられるのか不確定なので要確認--%>
+</c:url>">${item.title} &nsp;   ${item.genre}</a>      <%-- nspは空白 --%>
