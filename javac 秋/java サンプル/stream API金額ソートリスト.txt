@@ -1,0 +1,58 @@
+/**
+ * 商品クラス
+ */
+public class Item {
+	/**商品名 */
+	private String itemName;
+	
+	/**金額 */
+	private int price;
+	
+	public Item(String itemName, int price) {
+		this.itemName=itemName;
+		this.price=price;
+	}
+	
+	public String getItemName() {
+		return itemName;
+	}
+	public void setItemName(String itemName) {
+		this.itemName=itemName;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this .price=price;
+	}
+	public String toString() {
+		return String.format("itemName= [%s] price=[%d]",this.itemName,this.price);
+
+	}
+
+}
+
+
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+public class FirstStreamSample {
+
+	public static void main(String[] args) {
+		// 商品データのリストを作る
+		List<Item>itemList=new ArrayList<>();
+		itemList.add(new Item("大根",100));
+		itemList.add(new Item("納豆",40));
+		itemList.add(new Item("たまご",210));
+		
+		//リストをStream化
+		itemList.parallelStream()
+		//金額の順番のソート
+		.sorted(Comparator.comparingInt(item->item.getPrice()))
+		//ソート化した結果ごとに出力
+		.forEach(item->System.out.println(item));
+	}
+
+}

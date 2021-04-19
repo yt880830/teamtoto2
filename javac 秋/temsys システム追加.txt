@@ -1,0 +1,49 @@
+temsystem ＪＡＶＡにて新しくソースファイルを作る方法
+
+（例）実行させたいソースコードを作りtemsysのパッケージに追加する
+
+<SystemManajer>にてstsに注目する
+
+32．　　private ○○ sts　○○;　など新規に作る
+
+ 
+・　新規に追加したい名前とボタン名を入力する
+69　従業員派遣管理システム\n" +
+
+従業員管理　(JI：追加 JU：更新 JD：削除　アクティビティ：JJ）　など
+
+"どの機能を実行しますか？\n[S,JI,JU,JJ,CI,JD,KI,KD,X]>"
+
+・起動後のメッセージ状態を決める
+
+// 適正システム
+
+186	sts14 = new Tyusen(
+		"",
+		 "",
+		false
+			 );
+
+
+格納する場所を定義する
+
+199    sts1.setNextStatus( "JJ", sts14 );
+
+実行するファイルにコンストラクタを追加する
+
+/**
+			 * @param String firstMess
+			 * @param String promptMess
+			 * @param boolean IsEndStatus
+			 */
+			Tyusen( String firstMess, String promptMess,
+			                 boolean IsEndStatus) {
+				super( firstMess, promptMess, IsEndStatus );
+
+
+特にfirstMess promptMess IsEndStatus に注目する
+次に以下を入力する
+public void displayFirstMess() throws IOException {
+
+例外を投げる
+			

@@ -1,0 +1,16 @@
+public class OverflowCheck1 {
+	/** 2つのStringのデータに同じダブルコーテーションで囲った文字列をさんしょうさせた
+	 * 場合、同じものを指しているのかを確認します。
+	 * 
+	 * @param args
+	 */
+
+	public static void main(String[] args) {
+		// TODO 自動生成されたメソッド・スタブ
+	String a = "あいうえお";
+	String b = "あいうえお";
+//aとbが同じ参照先を見ているか比較し、同じ場合はtrueになります
+	boolean result=(a==b);
+	System.out.println("a==b:"+ result);
+	}
+}

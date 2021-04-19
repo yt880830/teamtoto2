@@ -1,0 +1,31 @@
+package co.bbreak.sokusen._4._1;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class trywithresources {
+
+	public static void main(String[] args) {
+		// TODO 自動生成されたメソッド・スタブ
+		File file=new File("c:\sokusen\sample.txt");
+		//
+		try(FileReader fRd=new FileReader(file);
+				BufferedReader bufRd=new BufferedReader(fRd)){
+			
+			String line="";
+			
+			//
+			while((line=bufRd.readLine())!=null) {
+				System.out.println(line);
+			}
+		}
+		//
+	}catch(FileNotFoundException e) {
+	 System.out.println(e);
+	}catch(IOException e) {
+	 System.out.println(e);
+	}
+}

@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int login_touroku (void )
+{
+    char   buf[128],eto[32];    // 文字型配列
+    int    res;                  // 年
+
+    printf("\nあなたは会員番号何番ですか？ ");
+    fflush(stdin);
+    gets(buf);                 // 文字列を入力し配列bufに格納
+    res=atoi(buf);              // 整数値に変換
+
+    switch ( res )           // 格納されている名前
+      {
+
+        case  1: strcpy(eto,"高橋"); break;
+        case  2: strcpy(eto,"2"); break;
+        case  3: strcpy(eto,"3"); break;
+        case  4: strcpy(eto,"4"); break;
+        case  5: strcpy(eto,"5"); break;
+        case  6: strcpy(eto,"6"); break;
+        case  7: strcpy(eto,"7"); break;
+        case  8: strcpy(eto,"8"); break;
+        case  9: strcpy(eto,"9"); break;
+        case 10: strcpy(eto,"10"); break;
+        case 11: strcpy(eto,"11"); break;
+      }
+
+    printf("\n%sあなたは、%sさんですね\n",buf,eto);
+    return 0;
+}
